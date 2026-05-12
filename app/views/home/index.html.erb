@@ -1,0 +1,77 @@
+<div class="space-y-6 animate-in fade-in duration-700">
+  <div class="flex items-center justify-between">
+    <h1 class="text-3xl font-bold font-heading text-slate-900 tracking-tight">Bienvenido al Dashboard</h1>
+    <div class="flex space-x-2">
+      <button class="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-xl text-sm font-bold shadow-sm hover:bg-slate-50 transition">Exportar</button>
+      <button class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition">+ Nuevo Proyecto</button>
+    </div>
+  </div>
+
+  <% if authenticated? %>
+    <%# Stats Grid %>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm transition hover:shadow-md">
+        <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 text-indigo-600">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <p class="text-slate-500 text-sm font-medium">Última Sesión</p>
+        <p class="text-2xl font-bold text-slate-900">Hace 2 mins</p>
+      </div>
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm transition hover:shadow-md">
+        <div class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center mb-4 text-emerald-600">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        </div>
+        <p class="text-slate-500 text-sm font-medium">Seguridad</p>
+        <p class="text-2xl font-bold text-slate-900">BCrypt Activo</p>
+      </div>
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm transition hover:shadow-md">
+        <div class="w-10 h-10 bg-violet-50 rounded-xl flex items-center justify-center mb-4 text-violet-600">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        </div>
+        <p class="text-slate-500 text-sm font-medium">Correos Enviados</p>
+        <p class="text-2xl font-bold text-slate-900">0 / <%= Date.today.strftime("%b") %></p>
+      </div>
+    </div>
+
+    <%# Large Content Card %>
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="p-8">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center font-heading font-bold text-2xl text-slate-400">
+             <%= Current.user.email_address[0].upcase %>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">Perfil de Usuario</h2>
+            <p class="text-slate-500 text-sm"><%= Current.user.email_address %></p>
+          </div>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex justify-between items-center">
+            <div>
+              <p class="text-sm font-bold text-slate-800">Autenticación Rails 8</p>
+              <p class="text-xs text-slate-500">Usando el motor de sesiones nativo</p>
+            </div>
+            <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Verificado</span>
+          </div>
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex justify-between items-center text-slate-400 italic">
+            <p class="text-sm">Más widgets proximamente...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% else %>
+    <%# Landing / Call to Action when not logged in %>
+    <div class="bg-gradient-to-br from-slate-900 to-indigo-900 rounded-[40px] p-12 text-white text-center shadow-2xl shadow-indigo-200 mt-10">
+      <h2 class="text-4xl md:text-6xl font-bold font-heading mb-6 leading-tight">Accede a tu cuenta <br> <span class="text-indigo-400">Pro</span> de AuthApp</h2>
+      <p class="text-slate-300 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+        Gestiona tus usuarios y seguridad desde una interfaz diseñada para aplicaciones web modernas.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <%= link_to "Comenzar Ahora", new_registration_path, class: "w-full sm:w-auto bg-indigo-500 text-white px-10 py-4 rounded-2xl text-lg font-bold hover:bg-indigo-400 transition transform active:scale-95" %>
+        <%= link_to "Iniciar Sesión", new_session_path, class: "w-full sm:w-auto bg-white/10 text-white border border-white/20 backdrop-blur-sm px-10 py-4 rounded-2xl text-lg font-bold hover:bg-white/20 transition transform active:scale-95" %>
+      </div>
+    </div>
+  <% end %>
+</div>

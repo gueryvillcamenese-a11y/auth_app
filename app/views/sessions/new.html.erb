@@ -1,0 +1,109 @@
+<div class="fixed inset-0 flex flex-col md:flex-row overflow-hidden bg-white">
+  <%# Left Side: Brand & Visuals %>
+  <div class="hidden md:flex md:w-1/2 relative overflow-hidden bg-slate-900">
+    <%# Animated Mesh Gradient Background %>
+    <div class="absolute inset-0 z-0">
+      <div class="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-indigo-600/30 rounded-full filter blur-[120px] animate-pulse"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-violet-600/30 rounded-full filter blur-[120px] animate-pulse" style="animation-delay: 2s;"></div>
+      <div class="absolute top-[20%] right-[10%] w-[40%] h-[40%] bg-rose-500/20 rounded-full filter blur-[80px] animate-pulse" style="animation-delay: 4s;"></div>
+    </div>
+
+    <%# Content %>
+    <div class="relative z-10 flex flex-col justify-between p-16 w-full text-white">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-2xl">
+          <span class="font-heading font-bold text-slate-900 text-2xl">A</span>
+        </div>
+        <span class="font-heading text-2xl font-bold tracking-tight">AuthApp Pro</span>
+      </div>
+
+      <div>
+        <h2 class="text-5xl font-extrabold font-heading leading-tight mb-6">
+          Bienvenido a la <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-400 to-rose-400">Próxima Generación</span> <br>
+          de Seguridad.
+        </h2>
+        <p class="text-slate-400 text-lg max-w-md leading-relaxed">
+          Nuestra plataforma ofrece autenticación biométrica simulada, cifrado de grado militar y una experiencia de usuario sin precedentes.
+        </p>
+      </div>
+
+      <div class="flex items-center space-x-8 text-slate-500 text-sm font-medium">
+        <div class="flex items-center">
+          <div class="w-2 h-2 bg-emerald-500 rounded-full mr-2 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+          Sistemas Activos
+        </div>
+        <div class="flex items-center">
+          <div class="w-2 h-2 bg-indigo-500 rounded-full mr-2 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
+          v8.1.3 Stable
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# Right Side: Login Form %>
+  <div class="w-full md:w-1/2 flex flex-col justify-center items-center p-8 sm:p-16 bg-white relative">
+    <div class="w-full max-w-md space-y-10">
+      <%# Mobile Logo (only visible on mobile) %>
+      <div class="md:hidden flex items-center justify-center space-x-2 mb-8">
+        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-lg">A</span>
+        </div>
+        <span class="text-xl font-bold text-slate-900">AuthApp Pro</span>
+      </div>
+
+      <div class="space-y-3">
+        <h1 class="text-4xl font-extrabold font-heading text-slate-900 tracking-tight">Iniciar Sesión</h1>
+        <p class="text-slate-500 font-medium">Ingresa tus credenciales para acceder al panel.</p>
+      </div>
+
+      <%= form_with url: session_url, class: "space-y-6" do |form| %>
+        <div class="space-y-2">
+          <%= form.label :email_address, "Email Corporativo", class: "block text-xs font-bold text-slate-400 uppercase tracking-widest ml-1" %>
+          <div class="group relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors group-focus-within:text-indigo-600 text-slate-400">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206"></path></svg>
+            </div>
+            <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: "ejemplo@empresa.com", value: params[:email_address], class: "block w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:border-transparent transition duration-300 shadow-sm" %>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between items-center ml-1">
+            <%= form.label :password, "Contraseña", class: "text-xs font-bold text-slate-400 uppercase tracking-widest" %>
+            <%= link_to "¿Olvidaste la contraseña?", new_password_path, class: "text-xs font-bold text-rose-500 hover:text-rose-600 transition" %>
+          </div>
+          <div class="group relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors group-focus-within:text-indigo-600 text-slate-400">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "••••••••", maxlength: 72, class: "block w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:border-transparent transition duration-300 shadow-sm" %>
+          </div>
+        </div>
+
+        <div class="pt-4">
+          <button type="submit" class="w-full relative group overflow-hidden bg-slate-900 text-white py-4 rounded-2xl text-lg font-bold shadow-2xl transition active:scale-95">
+            <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 via-violet-600 to-rose-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <span class="relative z-10">Entrar al Sistema</span>
+          </button>
+        </div>
+      <% end %>
+
+      <div class="mt-12 text-center">
+        <p class="text-sm text-slate-500 font-medium">
+          ¿No tienes acceso?
+          <%= link_to "Solicitar una cuenta", new_registration_path, class: "text-indigo-600 font-bold hover:text-indigo-700 transition border-b-2 border-indigo-100 hover:border-indigo-600" %>
+        </p>
+      </div>
+
+      <%# Simple Footer inside Login Form %>
+      <div class="pt-12 text-[10px] text-slate-300 flex justify-between uppercase tracking-tighter">
+        <span>© <%= Time.now.year %> AuthApp Pro</span>
+        <div class="space-x-4">
+          <a href="#" class="hover:text-slate-500 transition">Privacidad</a>
+          <a href="#" class="hover:text-slate-500 transition">Soporte</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

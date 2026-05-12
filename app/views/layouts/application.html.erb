@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="h-full bg-slate-50">
+  <head>
+    <title><%= content_for(:title) || "AuthApp Pro" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Fonts: Inter & Outfit %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      .font-heading { font-family: 'Outfit', sans-serif; }
+    </style>
+  </head>
+
+  <body class="h-full overflow-hidden flex bg-slate-50">
+    <% if authenticated? %>
+      <%# Sidebar para usuarios logeados %>
+      <aside class="hidden md:flex md:w-64 md:flex-col bg-slate-900 text-white">
+        <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+          <div class="flex items-center flex-shrink-0 px-6 mb-8">
+            <div class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center mr-3 shadow-lg shadow-indigo-500/20">
+              <span class="font-heading font-bold text-lg">A</span>
+            </div>
+            <span class="font-heading text-xl font-bold tracking-tight">AuthApp Pro</span>
+          </div>
+          <nav class="mt-5 flex-1 px-3 space-y-1">
+            <a href="<%= root_path %>" class="bg-slate-800 text-white group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition">
+              <svg class="mr-3 h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+              Dashboard
+            </a>
+            <a href="#" class="text-slate-300 hover:bg-slate-800 hover:text-white group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition">
+              <svg class="mr-3 h-5 w-5 text-slate-500 group-hover:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+              Usuarios
+            </a>
+            <a href="#" class="text-slate-300 hover:bg-slate-800 hover:text-white group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition">
+              <svg class="mr-3 h-5 w-5 text-slate-500 group-hover:text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              Ajustes
+            </a>
+          </nav>
+        </div>
+        <div class="flex-shrink-0 flex bg-slate-800 p-4">
+          <div class="flex items-center">
+            <div class="inline-block h-9 w-9 rounded-full bg-indigo-500 flex items-center justify-center text-xs font-bold shadow-inner">
+              <%= Current.user.email_address[0].upcase %>
+            </div>
+            <div class="ml-3">
+              <p class="text-xs font-bold text-white truncate w-32"><%= Current.user.email_address %></p>
+              <%= button_to "Cerrar Sesión", session_path, method: :delete, class: "text-[10px] font-bold text-slate-400 hover:text-rose-400 transition" %>
+            </div>
+          </div>
+        </div>
+      </aside>
+    <% end %>
+
+    <div class="flex flex-col w-0 flex-1 overflow-hidden">
+      <header class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow-sm border-b border-slate-200">
+        <div class="flex-1 px-4 flex justify-between">
+          <div class="flex-1 flex items-center">
+            <div class="max-w-xs w-full lg:max-w-md relative text-slate-400 focus-within:text-slate-600">
+              <div class="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              </div>
+              <input class="block w-full h-full pl-10 pr-3 py-2 border-transparent text-slate-900 placeholder-slate-500 focus:outline-none focus:placeholder-slate-400 focus:ring-0 focus:border-transparent sm:text-sm" placeholder="Buscar..." type="search">
+            </div>
+          </div>
+          <div class="ml-4 flex items-center md:ml-6 space-x-4">
+            <% if !authenticated? %>
+              <%= link_to "Entrar", new_session_path, class: "text-sm font-semibold text-slate-600 hover:text-indigo-600 transition" %>
+              <%= link_to "Crear Cuenta", new_registration_path, class: "bg-indigo-600 text-white px-5 py-2 rounded-xl text-sm font-bold hover:bg-indigo-700 shadow-md transition active:scale-95" %>
+            <% else %>
+               <button class="bg-slate-50 p-1 rounded-full text-slate-400 hover:text-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <span class="sr-only">Notificaciones</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 relative overflow-y-auto focus:outline-none bg-slate-50">
+        <div class="py-6">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+            <% if notice %>
+              <div class="mb-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div class="bg-emerald-50 border border-emerald-100 text-emerald-800 px-4 py-3 rounded-xl shadow-sm flex items-center space-x-3">
+                  <svg class="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <p class="text-sm font-semibold"><%= notice %></p>
+                </div>
+              </div>
+            <% end %>
+
+            <% if alert %>
+              <div class="mb-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div class="bg-rose-50 border border-rose-100 text-rose-800 px-4 py-3 rounded-xl shadow-sm flex items-center space-x-3">
+                  <svg class="w-5 h-5 text-rose-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                  <p class="text-sm font-semibold"><%= alert %></p>
+                </div>
+              </div>
+            <% end %>
+
+            <%= yield %>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

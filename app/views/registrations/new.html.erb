@@ -1,0 +1,63 @@
+<div class="flex-grow flex items-center justify-center px-4 py-12">
+  <div class="max-w-md w-full">
+    <div class="bg-white rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100 overflow-hidden">
+      <div class="bg-indigo-600 p-8 text-center text-white">
+        <h1 class="text-3xl font-bold mb-2">Crear Cuenta</h1>
+        <p class="text-indigo-100 text-sm">Únete a AuthApp Premium hoy mismo.</p>
+      </div>
+
+      <div class="p-8">
+        <%= form_with model: @user, url: registration_path, class: "space-y-6" do |f| %>
+          <% if @user.errors.any? %>
+            <div class="bg-rose-50 border border-rose-100 p-4 rounded-2xl mb-6">
+              <ul class="list-disc list-inside text-sm text-rose-600 font-medium">
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="space-y-2">
+            <%= f.label :email_address, "Correo Electrónico", class: "block text-sm font-bold text-slate-700 ml-1" %>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206"></path></svg>
+              </div>
+              <%= f.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: "nombre@ejemplo.com", class: "block w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" %>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <%= f.label :password, "Contraseña", class: "block text-sm font-bold text-slate-700 ml-1" %>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+              </div>
+              <%= f.password_field :password, required: true, autocomplete: "new-password", placeholder: "••••••••", class: "block w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" %>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <%= f.label :password_confirmation, "Confirmar Contraseña", class: "block text-sm font-bold text-slate-700 ml-1" %>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+              </div>
+              <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: "••••••••", class: "block w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" %>
+            </div>
+          </div>
+
+          <%= f.submit "Registrarse Ahora", class: "w-full bg-indigo-600 text-white py-4 px-4 rounded-2xl text-lg font-bold hover:bg-indigo-700 shadow-xl shadow-indigo-100 transition transform active:scale-95 cursor-pointer" %>
+        <% end %>
+
+        <div class="mt-8 pt-8 border-t border-slate-100 text-center">
+          <p class="text-sm text-slate-500 font-medium">
+            ¿Ya tienes una cuenta?
+            <%= link_to "Inicia Sesión", new_session_path, class: "text-indigo-600 font-bold hover:text-indigo-700 transition" %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
