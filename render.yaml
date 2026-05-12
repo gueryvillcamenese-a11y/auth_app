@@ -4,6 +4,7 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./Dockerfile
+    startCommand: "bin/rails db:prepare && bin/rails server"
     envVars:
       - key: RAILS_MASTER_KEY
         sync: false
@@ -11,6 +12,8 @@ services:
         fromDatabase:
           name: auth-db
           property: connectionString
+      - key: RAILS_ENV
+        value: production
       - key: GMAIL_USER
         sync: false
       - key: GMAIL_PASS
